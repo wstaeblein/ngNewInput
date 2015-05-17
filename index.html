@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Input</title>
+
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" href="css/font.css" />
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+
+
+	<style>
+
+	.ni_container {
+		display: inline-block;
+		min-width: 50px;
+		overflow: hidden;
+		border: 1px solid #DADADA;
+		border-left-width: 6px;
+		height: 44px;
+		position: relative;
+		border-radius: 5px;
+	}
+
+	.ni_container.focused {
+		border-color: forestgreen!important;
+	}
+
+	.ni_container.error {
+		border-color: crimson!important;
+	}
+
+	.ni_main {
+		float: left;
+		overflow: hidden;
+		padding: 3px 42px 3px 5px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.ni_main_icon {
+		padding-left: 48px;
+	}
+
+	.ni_container.focus {
+		border-color: forestgreen;
+	}
+
+	.ni_container.error {
+		border-color: crimson;
+	}
+
+
+	.ni_status {
+		width: 32px;
+		overflow: hidden;
+		background-color: #FAFAFA;
+		height: 100%;
+		display: inline-block;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	.ni_status img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -9px;
+        margin-top: -9px;
+        width: 18px;
+        height: 18px;
+	}
+
+	.ni_icon {
+		width: 46px;
+		overflow: hidden;
+		background-color: white;
+		height: 100%;
+		display: inline-block;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.ni_icon div {
+		border-right: 1px solid #DADADA;
+		height: 80%;
+		margin-top: 10%;
+		padding-right: 5px;
+		padding-left: 5px;
+		margin-right: 4px;
+		text-align: center;
+		line-height: 35px;	
+		color: #ADADAD;	
+	}
+
+	.ni_icon div > img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -11px;
+        margin-top: -7px;
+        width: 16px;
+        height: 16px;
+	}
+
+	.ni_minilabel {
+		font: normal 10px 'opensans';
+		margin-left: 5px;
+		color: #ADADAD;
+		position: relative;
+		top: +10px;
+		font-size: 14px;
+	}
+
+	.ni_content {
+		margin-top: 3px;
+	}
+
+	.ni_content > input {
+		border: 0;
+		width: 100%;
+		outline: 0;
+		color: gray;
+		padding-right: 50px;
+		font-size: 14px;
+		margin-top: 0;
+		margin-left: 5px;
+		display: none;
+	}
+
+	.ni_content > select {
+		border: 0;
+		width: 120%;
+		outline: 0;
+		color: gray;
+		font-size: 14px;
+		margin-top: 4px;
+	}	
+	</style>	
+</head>
+<body ng-app="newInputApp">
+
+
+	<div>
+			
+		<!--<p style="display: none">
+			<div class="ni_container" style="width: 420px">
+
+				<div class="ni_main">
+					<div class="ni_minilabel">Nome do Campo INPUT</div>
+					<div class="ni_content"><input type="text" value="Teste de Valor sgfsdgsd sdfgsd gdfg dfgfdg dfgdfgdfg  dgf dsdfgsd" /></div>
+
+				</div>
+
+				<div class="ni_icon">
+					<div><img src="img/mail.png" /></div>
+				</div>
+
+				<div class="ni_status">
+					<img src="img/error.png" />
+				</div>
+
+			</div>
+		</p>
+
+		<p style="display: none">
+			<div class="ni_container" style="width: 300px">
+
+				<div class="ni_main">
+					<div class="ni_minilabel">Nome do Campo SELECT</div>
+					<div class="ni_content">
+					<select>
+						<option value="">Teste de Item a ser escolhido</option>
+						<option value="">Outro Item que pode ser escolhido</option>
+					</select>
+					</div>
+
+				</div>
+
+				<div class="ni_icon">
+					<div><img src="img/map.png" /></div>
+				</div>
+
+				<div class="ni_status">
+					<img src="img/loader.gif" />
+				</div>
+
+			</div>
+		</p>-->
+
+
+			<p>Campo terá controles para:</p>
+			<ul>
+				<li>Normal</li>
+				<li>OK - Validado</li>
+				<li>Carregando (Espera)</li>
+				<li>Erro - Não Validado</li>
+				<li>Click para efetuar ação</li>
+
+			</ul>
+	</div>
+
+	<div ng-controller="testcontroller">
+		<p>
+			<ng-new-input ng-model="Nome" label="Nome" width="400" type="text" icon=".fa.fa-user" required></ng-new-input>
+		</p>
+		<p>
+			<ng-new-input ng-model="email" label="Email" width="400" type="email" icon=".fa.fa-envelope"></ng-new-input>
+		</p>		
+
+		<p>
+			<ng-new-input ng-model="age" label="Idade" width="140" type="number" icon=".fa.fa-calendar"></ng-new-input>
+		</p>			
+		<a href ng-click="mostra()">Clique me</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href ng-click="muda()">Muda Email</a>
+	</div>
+
+	<p><input type="text" /></p>
+
+<script language="javascript" src="js/jquery-1.11.1.min.js"></script>
+<script language="javascript" src="js/angular.min.js"></script>
+
+
+<script language="javascript">
+	
+(function() {
+
+	var niapp = angular.module('newInputApp', []);
+
+
+	 niapp.directive('ngNewInput', ['$compile', '$document', function($compile, $document) {
+
+	 	var frmNameCounter = 0;
+
+        return {
+        	restrict: 'E',
+        	template: function(ele, att) { 
+        		
+        				var typ = (att.type || 'text');
+        				var req = att.required != undefined ? ' required' : '';
+        				var ro = att.readonly != undefined ? ' readonly' : '';
+
+        				return '<div class="ni_container" ng-style="{ width: width }" ng-class="{ focused: hasFocus, error: form.field.$invalid && !hasFocus }">' +
+						    '<div class="ni_main" ng-class="{ ni_main_icon: icon }">' +
+								'<div class="ni_minilabel">{{ label }}</div>' +
+								'<div class="ni_content" ng-form name="ni_frm_' + frmNameCounter + '"><input type="' + typ + '" ng-model="model" name="field"' + req + ro + ' /></div>' +
+							'</div>' +
+							'<div class="ni_icon" ng-if="icon">' +
+								'<div ng-if="icon == 1"><img ng-src="{{ strIcon }}" /></div>' +
+								'<div ng-if="icon == 2"><i class="{{ strIcon }}"></i></div>' +
+							'</div>' +
+							'<div class="ni_status">' +
+								'<img src="img/error.png" />' +
+							'</div>' +
+						'</div>';
+					},
+            scope: {
+                model: '=ngModel',
+                config: '='
+            },
+            compile: function(element, attr) {
+            
+            	frmNameCounter ++;
+
+	            return function($scope, element, attr) { 
+
+	            	var form = $scope.$eval($('.ni_content', element).attr('name'));
+	            	var input = $('.ni_content > input', element);
+
+	            	$scope.width = (attr.width || 200) + 'px';
+	            	$scope.label = attr.label;
+	            	$scope.readOnly = (attr.readonly != undefined);
+					$scope.hasFocus = false;
+					$scope.mode = 0;
+					$scope.icon = 0;	// 0 = Sem Ícone, 1 = URL, 2 = Classe
+					$scope.strIcon = attr.icon;
+
+					if (attr.icon) {
+						if (attr.icon.substring(0, 1) != '.') {
+							$scope.icon = 1;
+						} else {
+							if (attr.icon.substring(1, 1) == '/') { $scope.icon = 1; } else { $scope.icon = 2; $scope.strIcon = $scope.strIcon.replace(/\./g, ' ').trim(); }
+						}
+					}
+
+
+	            	element.find('input').bind('focus', function() {
+	            		$scope.$apply(function() {
+		            		$scope.hasFocus = true; 
+	            		});
+	            	}).bind('blur', function() {
+
+	            		$scope.$apply(function() {
+		            		$scope.hasFocus = false; 
+	            		});
+
+	            		if ($(this).val() == '') { toggleLabel(0); }   
+	            		
+  
+
+	            	});
+
+	            	$(element).bind('click', function() { 
+	            		if (!$scope.model) { toggleLabel(1); } else { $('.ni_content > input', element).focus(); }
+	            	});
+
+	            	$scope.$watch('model', function() {
+	            		if ($scope.model) { toggleLabel(1, true); }  
+
+	            		// Valida o controle
+	            		if (form.field.$valid == false)  { $scope.mode = 3; } 	            		
+	            	});
+
+	            	var toggleLabel = function(status, nofocus) {
+
+	            		if (status == 0) {
+	            			$('.ni_content > input', element).hide(50, function() {
+								$('.ni_minilabel', element).animate({ top: '+10px', fontSize: '14px' }, 200);	            			
+	            			});	            			
+	            		} else {
+		            		$('.ni_minilabel', element).animate({ top: 0, fontSize: '10px' }, 200, function() { 
+		            			input.show();
+		            			if (!nofocus) { input.focus(); }
+		            		});
+	            		}
+	            	}
+	            }
+	        }
+    	}
+	}]);
+
+
+
+
+
+	// ------------------------------------------------------------------------------------------------------------------
+
+	niapp.controller('testcontroller', function($scope) {
+
+		$scope.email = "teste";
+		$scope.nome = "";
+
+		$scope.mostra = function() {
+			alert($scope.email);
+		}
+
+		$scope.muda = function() {
+			$scope.email = 'walter@antigravidade.net';
+		}		
+	});
+
+
+
+} ());
+</script>
+
+
+</body>
+</html>
